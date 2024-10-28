@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Input</title>
+    <style>
+        body {
+            background-color: #FFF6E3; /* Kuning Pastel */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+        }
+        form {
+            background-color: #FFB6C1; /* Baby Pink */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background-color: #ADD8E6; /* Baby Blue */
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #87CEFA; /* Light Blue on hover */
+        }
+        #informasi {
+            color: red; /* Warna pesan informasi */
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h2>Form Input</h2>
+    <form action="input.php" onsubmit="return validateForm()" method="post">
+        <label for="kecamatan">Kecamatan:</label>
+        <input type="text" id="kecamatan" name="kecamatan" value="">
+
+        <label for="latitude">Latitude:</label>
+        <input type="text" id="latitude" name="latitude" value="">
+
+        <label for="longitude">Longitude:</label>
+        <input type="text" id="longitude" name="longitude" value="">
+
+        <label for="luas">Luas:</label>
+        <input type="text" id="luas" name="luas" value="">
+
+        <label for="jumlah_penduduk">Jumlah Penduduk:</label>
+        <input type="text" id="jumlah_penduduk" name="jumlah_penduduk" value="">
+
+        <input type="submit" value="Submit">
+    </form>
+    <p id="informasi"></p>
+
+    <script>
+        function validateForm() {
+            let kecamatan = document.getElementById("kecamatan").value;
+            let latitude = document.getElementById("latitude").value;
+            let longitude = document.getElementById("longitude").value;
+            let luas = document.getElementById("luas").value;
+            let jumlahPenduduk = document.getElementById("jumlah_penduduk").value;
+            let text = "";
+
+            // Validasi kecamatan
+            if (kecamatan.trim() === "") {
+                text += "Data kecamatan tidak boleh kosong.<br>";
+            }
+
+            // Validasi luas
+            if (isNaN(luas) || luas < 1) {
+                text += "Data luas harus angka dan tidak boleh bernilai negatif.<br>";
+            }
+
+            // Validasi jumlah penduduk
+            if (isNaN(jumlahPenduduk) || jumlahPenduduk < 1) {
+                text += "Data jumlah penduduk harus angka dan tidak boleh bernilai negatif.<br>";
+            }
+
+            // Validasi longitude dan latitude
+            if (isNaN(longitude) || isNaN(latitude)) {
+                text += "Data longitude dan latitude harus berupa angka.<br>";
+            }
+
+            document.getElementById("informasi").innerHTML = text;
+
+            // Jika ada pesan, hentikan pengiriman form
+            if (text !== "") {
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>
